@@ -1,4 +1,4 @@
-package com.kasem.receive_sharing_intent
+package com.lielvan.receive_sharing_intent
 
 import android.content.Context
 import android.content.Intent

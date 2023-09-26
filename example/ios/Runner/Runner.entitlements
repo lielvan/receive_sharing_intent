@@ -10,7 +10,7 @@
     </array>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.com.kasem.sharing</string>
+		<string>group.com.lielvan.sharing</string>
 	</array>
 </dict>
 </plist>
