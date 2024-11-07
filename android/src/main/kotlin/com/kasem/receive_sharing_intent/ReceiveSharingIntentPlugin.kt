@@ -84,23 +84,10 @@ class ReceiveSharingIntentPlugin : FlutterPlugin, ActivityAware, MethodCallHandl
         when {
             // Sharing or opening media (image, video, text, file)
             intent.type != null && (
-                    intent.action == Intent.ACTION_VIEW
-                            || intent.action == Intent.ACTION_SEND
+                    intent.action == Intent.ACTION_SEND
                             || intent.action == Intent.ACTION_SEND_MULTIPLE) -> {
 
                 val value = getMediaUris(intent)
-                if (initial) initialMedia = value
-                latestMedia = value
-                eventSinkMedia?.success(latestMedia?.toString())
-            }
-
-            // Opening URL
-            intent.action == Intent.ACTION_VIEW -> {
-                val value = JSONArray(
-                        listOf(JSONObject()
-                                .put("path", intent.dataString)
-                                .put("type", MediaType.URL.value))
-                )
                 if (initial) initialMedia = value
                 latestMedia = value
                 eventSinkMedia?.success(latestMedia?.toString())
@@ -112,11 +99,6 @@ class ReceiveSharingIntentPlugin : FlutterPlugin, ActivityAware, MethodCallHandl
         if (intent == null) return null
 
         return when (intent.action) {
-            Intent.ACTION_VIEW -> {
-                val uri = intent.data
-                toJsonObject(uri, null, intent.type)?.let { JSONArray(listOf(it)) }
-            }
-
             Intent.ACTION_SEND -> {
                 val uri = intent.parcelable<Uri>(Intent.EXTRA_STREAM)
                 val text = intent.getStringExtra(Intent.EXTRA_TEXT)
